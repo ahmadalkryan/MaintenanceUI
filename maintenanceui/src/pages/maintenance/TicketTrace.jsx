@@ -1,7 +1,5 @@
 ﻿
 
-
-
 // src/pages/MaintenanceDashboard.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -40,8 +38,8 @@ export default function MaintenanceDashboard() {
 
     const statusInfo = (statusId) => {
         switch (statusId) {
-            case 1: return { text: 'Pending', color: 'bg-rose-100 text-rose-700', icon: '⏱️' };
-            case 2: return { text: 'Complete', color: 'bg-emerald-100 text-emerald-700', icon: '✅' };
+            case 2: return { text: 'Pending', color: 'bg-rose-100 text-rose-700', icon: '⏱️' };
+            case 1: return { text: 'Complete', color: 'bg-emerald-100 text-emerald-700', icon: '✅' };
             case 3: return { text: 'Refund', color: 'bg-amber-100 text-amber-700', icon: '🔄' };
             default: return { text: 'Unknown', color: 'bg-slate-100 text-slate-700', icon: '❓' };
         }
@@ -96,13 +94,13 @@ export default function MaintenanceDashboard() {
                                                 <td className="px-6 py-4 text-right">
                                                     <div className="flex justify-end gap-2">
                                                         <button
-                                                            onClick={() => navigate('/maintenance/add-trace', { state: { ticket: t } })}
+                                                            onClick={() => navigate('/add-trace', { state: { ticket: t } })}
                                                             className="text-xs bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-lg hover:from-cyan-600 hover:to-blue-600 font-medium transition shadow-sm"
                                                         >
                                                             Add Trace
                                                         </button>
                                                         <button
-                                                            onClick={() => navigate('/maintenance/traces', { state: { ticket: t } })}
+                                                            onClick={() => navigate('/traces', { state: { ticket: t } })}
                                                             className="text-xs bg-gradient-to-r from-slate-600 to-slate-700 text-white px-4 py-2 rounded-lg hover:from-slate-700 hover:to-slate-800 font-medium transition shadow-sm"
                                                         >
                                                             Trace History
@@ -172,9 +170,6 @@ export default function MaintenanceDashboard() {
         </div>
     );
 }
-
-
-
 
 
 

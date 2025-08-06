@@ -1,5 +1,277 @@
+ï»¿//// src/App.js
+//import React from 'react';
+//import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+//import { AuthProvider } from './contexts/AuthContext';
+//import NotificationDropdown from './components/NotificationDropDown';
+//import Login from './pages/auth/Login';
+//import CreateTicket from './pages/employee/CreateTickets';
+//import TicketDashboard from './pages/admin/TicketDashboard';
+////import { AuthProvider } from './contexts/AuthContext';
+//import { NotificationProvider } from './contexts/NotificationContext';
+////import TicketDetails from './pages/Maintenanc/TicketDetails';
+////import './App.css';
 
-// İí ãáİ ÇáÊæÌíå ÇáÑÆíÓí
+//const RedirectToDashboard = () => {
+//    const role = localStorage.getItem('role');
+
+//    if (role === 'Employee') {
+//        return <Navigate to="/create-ticket" replace />;
+//    } else if (role === 'Maintenance') {
+//        return <Navigate to="/tickets" replace />;
+//    }
+
+//    return <Navigate to="/unauthorized" replace />;
+//};
+
+//function App() {
+//    return (
+//        <AuthProvider>
+//            <NotificationProvider>
+//            <Router>
+//                <div className="app-container">
+//                    <header className="app-header">
+//                        <div className="header-content">
+//                            <h1>System Ticketing Maintenace </h1>
+//                            <div className="header-actions">
+//                                <NotificationDropdown />
+//                            </div>
+//                        </div>
+//                    </header>
+
+//                    <main className="app-main">
+//                        <Routes>
+//                            <Route path="/login" element={
+//                                localStorage.getItem('authToken') ? (
+//                                    <RedirectToDashboard />
+//                                ) : (
+//                                    <Login />
+//                                )
+//                            } />
+
+//                            <Route path="/create-ticket" element={
+//                                localStorage.getItem('role') === 'Employee' ? (
+//                                    <CreateTicket />
+//                                ) : (
+//                                    <Navigate to="/login" replace />
+//                                )
+//                            } />
+
+//                            <Route path="/tickets" element={
+//                                localStorage.getItem('role') === 'Maintenance' ? (
+//                                    <TicketDashboard />
+//                                ) : (
+//                                    <Navigate to="/login" replace />
+//                                )
+//                            } />
+
+//                            <Route path="/" element={
+//                                localStorage.getItem('authToken') ? (
+//                                    <RedirectToDashboard />
+//                                ) : (
+//                                    <Navigate to="/login" replace />
+//                                )
+//                            } />
+
+//                            <Route path="*" element={<Navigate to="/" replace />} />
+//                        </Routes>
+//                    </main>
+
+//                    <footer className="app-footer">
+//                        <p>Â© 2025 Maintenace Ticketing System All Rights saved. .</p>
+//                    </footer>
+//                </div>
+//            </Router>
+//            </NotificationProvider>
+//        </AuthProvider>
+//    );
+//}
+
+//export default App;
+// src/App.jsx
+// src/App.jsx
+
+// src/App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import NotificationDropdown from './components/NotificationDropDown';
+import Login from './pages/auth/Login';
+import CreateTicket from './pages/employee/CreateTickets';
+import TicketDashboard from './pages/admin/TicketDashboard';
+import { NotificationProvider } from './contexts/NotificationContext';
+import ProtectedRoute from './api/ProtectedRoute';
+import Dashboard from './pages/admin/DashboardStatus';
+import EmployeeDashboard from './pages/employee/EmployeeDashboard';
+import MaintenanceDashboard from './pages/maintenance/TicketTrace';
+import AddTracePage from './pages/maintenance/AddTracePage';
+import TicketTracesPage from './pages/maintenance/TicketTracesPage';
+function App() {
+    return (
+        <AuthProvider>
+            <NotificationProvider>
+                <Router>
+                    <div className="app-container">
+                        <header className="app-header">
+                            <div className="header-content">
+                                <h1>System Ticketing Maintenance</h1>
+                                <div className="header-actions">
+                                    <NotificationDropdown />
+                                </div>
+                            </div>
+                        </header>
+
+                        <main className="app-main">
+                            <Routes>
+                                {/* ØµÙØ­Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ */}
+                                <Route path="/login" element={
+                                    <Login />
+                                } />
+                                 Employee Routes 
+                                {/*<Route path="/employee-dashboard" element={*/}
+                                {/*    <ProtectedRoute allowedRoles={['Employee']}>*/}
+                                {/*        <EmployeeDashboard />*/}
+                                {/*    </ProtectedRoute>*/}
+                                {/*} />*/}
+
+
+                                 Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© - Ù„Ù„Ù…ÙˆØ¸ÙÙŠÙ† ÙÙ‚Ø· 
+                                {/*<Route path="/create-ticket" element={*/}
+                                {/*    <ProtectedRoute allowedRoles={['Employee']}>*/}
+                                {/*        <CreateTicket />*/}
+                                {/*    </ProtectedRoute>*/}
+                                {/*} />*/}
+
+                                 Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ù„Ù…Ø´Ø±ÙÙŠ Ø§Ù„ØµÙŠØ§Ù†Ø© ÙÙ‚Ø· 
+                                {/*<Route path="/tickets" element={*/}
+                                {/*    <ProtectedRoute allowedRoles={['Maintenance']}>*/}
+                                {/*        <MaintenanceDashboard />*/}
+                                        
+                                {/*    </ProtectedRoute>*/}
+                                {/*} />*/}
+
+                                {/*<Route path="/traces" element={*/}
+                                {/*    <ProtectedRoute allowedRoles={['Maintenance']}>*/}
+                                {/*        <TicketTracesPage />*/}
+
+                                {/*    </ProtectedRoute>*/}
+                                {/*} />*/}
+                                {/*<Route path="/add-trace" element={*/}
+                                {/*    <ProtectedRoute allowedRoles={['Maintenance']}>*/}
+                                {/*        <AddTracePage />*/}
+
+                                {/*    </ProtectedRoute>*/}
+                                {/*} />*/}
+
+
+                                <Route path="/dash" element={
+                                    <ProtectedRoute allowedRoles={['Admin']}>
+                                        <Dashboard />
+                                    </ProtectedRoute>
+                                } />
+                                <Route path="/tdash" element={
+                                    <ProtectedRoute allowedRoles={['Admin']}>
+                                        <TicketDashboard />
+                                    </ProtectedRoute>
+                                } />
+                               
+                                 Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© - ØªÙˆØ¬ÙŠÙ‡ Ø¨Ø³ÙŠØ· 
+                                <Route path="/" element={
+                                    <Navigate to="/login" replace />
+                                } />
+
+                                {/* Ø£ÙŠ Ù…Ø³Ø§Ø± ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ */}
+                                <Route path="*" element={<Navigate to="/login" replace />} />
+                            </Routes>
+                        </main>
+
+                        <footer className="app-footer">
+                            <p>Â© 2025 Maintenance Ticketing System. All Rights Reserved.</p>
+                        </footer>
+                    </div>
+                </Router>
+            </NotificationProvider>
+        </AuthProvider>
+    );
+}
+
+export default App;
+
+
+
+
+
+
+
+//import React from 'react'; Ù‡Ø§Ø¯ Ø´ØºØ§Ù„ 
+//import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+//import { AuthProvider } from './contexts/AuthContext';
+//import NotificationDropdown from './components/NotificationDropDown';
+//import Login from './pages/auth/Login';
+//import CreateTicket from './pages/employee/CreateTickets';
+//import TicketDashboard from './pages/admin/TicketDashboard';
+//import { NotificationProvider } from './contexts/NotificationContext';
+//import ProtectedRoute from './api/ProtectedRoute';
+//import RedirectToDashboard from './api/RedirectToDashboard';
+
+//function App() {
+//    return (
+//        <AuthProvider>
+//            <NotificationProvider>
+//                <Router>
+//                    <div className="app-container">
+//                        <header className="app-header">
+//                            <div className="header-content">
+//                                <h1>System Ticketing Maintenance</h1>
+//                                <div className="header-actions">
+//                                    <NotificationDropdown />
+//                                </div>
+//                            </div>
+//                        </header>
+
+//                        <main className="app-main">
+//                            <Routes>
+//                                {/* ØµÙØ­Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ */}
+//                                <Route path="/login" element={
+//                                    <Login />
+//                                } />
+
+//                                {/* Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© - Ù„Ù„Ù…ÙˆØ¸ÙÙŠÙ† ÙÙ‚Ø· */}
+//                                <Route path="/create-ticket" element={
+//                                    <ProtectedRoute allowedRoles={['Employee']}>
+//                                        <CreateTicket />
+//                                    </ProtectedRoute>
+//                                } />
+
+//                                {/* Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ù„Ù…Ø´Ø±ÙÙŠ Ø§Ù„ØµÙŠØ§Ù†Ø© ÙÙ‚Ø· */}
+//                                <Route path="/tickets" element={
+//                                    <ProtectedRoute allowedRoles={['Maintenance']}>
+//                                        <TicketDashboard />
+//                                    </ProtectedRoute>
+//                                } />
+
+//                                {/* Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© */}
+//                                <Route path="/" element={
+//                                    <RedirectToDashboard />
+//                                } />
+
+//                                {/* Ø£ÙŠ Ù…Ø³Ø§Ø± ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ */}
+//                                <Route path="*" element={<Navigate to="/" replace />} />
+//                            </Routes>
+//                        </main>
+
+//                        <footer className="app-footer">
+//                            <p>Â© 2025 Maintenance Ticketing System. All Rights Reserved.</p>
+//                        </footer>
+//                    </div>
+//                </Router>
+//            </NotificationProvider>
+//        </AuthProvider>
+//    );
+//}
+
+//export default App;
+
+// ÙÙŠ Ù…Ù„Ù Ø§Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠ
 //import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 //import MaintenanceDashboard from './pages/maintenance/TicketTrace';
 //import AddTracePage from './pages/maintenance/AddTracePage';
@@ -22,7 +294,7 @@
         //        <Route path="/maintenance" element={<MaintenanceDashboard />} />
         //        <Route path="/maintenance/add-trace" element={<AddTracePage />} />
         //        <Route path="/maintenance/traces" element={<TicketTracesPage />} />
-        //        {/* ãÓÇÑÇÊ ÃÎÑì... */}
+        //        {/* Ù…Ø³Ø§Ø±Ø§Øª Ø£Ø®Ø±Ù‰... */}
         //    </Routes>
         //</Router>
 //    );
@@ -32,67 +304,179 @@
 
 
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import Login from './pages/auth/Login';
-import CreateTickets from './pages/employee/CreateTickets';
-import TicketDashboard from './pages/admin/TicketDashboard';
-import Dashboard from './pages/admin/DashboardStatus';
-import MaintenanceDashboard from './pages/maintenance/TicketTrace';
-import AddTracePage from './pages/maintenance/AddTracePage';
-import TicketTracesPage from './pages/maintenance/TicketTracesPage';
-////import Home from './components/pages/home';
-////import './App.css';
-import { AuthProvider, AuthContext } from './contexts/AuthContext';
-
-function AppRoutes() {
-    const { isAuthenticated } = useContext(AuthContext);
-
-    return (
-        <Routes>
-            {/*all user */}
-            {/*<Route path="/login"*/}
-            {/*    element={isAuthenticated ? <Login /> : <Navigate to="/home" replace />}*/}
-            {/*/>*/}
-
-            {/*has role Employee*/}
-            {/*<Route path="/create-ticket"*/}
-            {/*    element={isAuthenticated ? <CreateTickets /> : <Navigate to="/login" replace />}*/}
-            {/*/>*/}
-            {/*has role Maintenance*/}
-            {/*<Route path="/maindashboard"*/}
-            {/*    element={isAuthenticated ? <MaintenanceDashboard /> : <Navigate to="/login" replace />}*/}
-            {/*/>*/}
-
-            {/*has role Admin*/}
-            {/*<Route path="/stausdash"*/}
-            {/*    element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />}*/}
-            {/*/>*/}
-            {/*has role Admin*/}
-            {/*<Route path="/dash"*/}
-            {/*    element={isAuthenticated ? < TicketDashboard /> : <Navigate to="/login" replace />}*/}
-            {/*/>*/}
-                                  <Route path="/" element={<MaintenanceDashboard />} />
-                               <Route path="/maintenance/new-ticket" element={<div>New Ticket Page</div>} />
-                             <Route path="/maintenance/add-trace" element={<AddTracePage />} />
-                            <Route path="/maintenance/traces" element={<TicketTracesPage />} />
 
 
-        </Routes>
-    );
+//import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+//import { AuthProvider, useAuth } from './contexts/AuthContext';
+//import Login from './pages/auth/Login';
+//import CreateTickets from './pages/employee/CreateTickets';
+////import Dashboard from './pages/Dashboard'; // ØµÙØ­Ø© Ù…Ø´Ø±Ù Ø§Ù„ØµÙŠØ§Ù†Ø©
+//import TicketTracesPage from './pages/maintenance/TicketTracesPage';
+////import Unauthorized from './pages/Unauthorized';
+//import ProtectedRoute from './api/ProtectedRoute';
 
-}
-function App() {
-    return (
-        <AuthProvider>
-            <BrowserRouter>
-                <AppRoutes />
-            </BrowserRouter>
-        </AuthProvider>
-    );
-}
+//// Ù…ÙƒÙˆÙ† Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¨Ø¹Ø¯ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø­Ø³Ø¨ Ø§Ù„Ø¯ÙˆØ±
 
-export default App;
+
+//// âœ… Ù…ÙƒÙˆÙ† Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¨Ø¹Ø¯ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„
+//const RedirectToDashboard = () => {
+//    const token = localStorage.getItem('token');
+//    const role = localStorage.getItem('role');
+
+//    if (!token) {
+//        return <Navigate to="/login" replace />;
+//    }
+
+//    if (role === 'Employee') {
+//        return <Navigate to="/create-ticket" replace />;
+//    } else if (role === 'Maintenance') {
+//        return <Navigate to="/dashboard" replace />;
+//    }
+
+//    return <Navigate to="/unauthorized" replace />;
+//};
+
+//function App() {
+//    return (
+//        <AuthProvider> {/* âœ… Provider Ù‡Ù†Ø§ */}
+//            <Router>
+//                <div className="app">
+//                    <Routes>
+//                        {/* ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ */}
+//                        <Route path="/login" element={
+//                            localStorage.getItem('token') ? (
+//                                <RedirectToDashboard />
+//                            ) : (
+//                                <Login />
+//                            )
+//                        } />
+
+//                        {/* Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© - Ù„Ù„Ù…ÙˆØ¸ÙÙŠÙ† ÙÙ‚Ø· */}
+//                        <Route path="/create-ticket" element={
+//                            <ProtectedRoute allowedRoles={['Employee']}>
+//                                <CreateTickets />
+//                            </ProtectedRoute>
+//                        } />
+
+//                        {/* Ù„ÙˆØ­Ø© Ø§Ù„ØªØ­ÙƒÙ… - Ù„Ù…Ø´Ø±Ù Ø§Ù„ØµÙŠØ§Ù†Ø© ÙÙ‚Ø· */}
+//                        <Route path="/dashboard" element={
+//                            <ProtectedRoute allowedRoles={['Maintenance']}>
+//                                <TicketTracesPage />
+//                            </ProtectedRoute>
+//                        } />
+
+//                        {/* ØºÙŠØ± Ù…ØµØ±Ù‘Ø­ Ø¨Ù‡ */}
+//                        <Route path="/unauthorized" element={<Unauthorized />} />
+
+//                        {/* Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© */}
+//                        <Route path="/" element={
+//                            localStorage.getItem('token') ? (
+//                                <RedirectToDashboard />
+//                            ) : (
+//                                <Navigate to="/login" replace />
+//                            )
+//                        } />
+
+//                        {/* Ø£ÙŠ Ù…Ø³Ø§Ø± ØºÙŠØ± Ù…Ø¹Ø±ÙˆÙ */}
+//                        <Route path="*" element={<Navigate to="/" replace />} />
+//                    </Routes>
+//                </div>
+//            </Router>
+//        </AuthProvider>
+//    );
+//}
+
+//export default App;
+/****************** */
+
+////import { NotificationProvider } from './contexts/NotificationContext';
+//import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+//import { useContext } from 'react';
+
+////all
+//import Login from './pages/auth/Login';
+////employee 
+//import CreateTickets from './pages/employee/CreateTickets';
+////Admin 
+//import TicketDashboard from './pages/admin/TicketDashboard';
+//import Dashboard from './pages/admin/DashboardStatus';
+////maintenance
+//import MaintenanceDashboard from './pages/maintenance/TicketTrace';
+//import AddTracePage from './pages/maintenance/AddTracePage';
+//import TicketTracesPage from './pages/maintenance/TicketTracesPage';
+//////import Home from './components/pages/home';
+//////import './App.css';
+//import { AuthProvider, AuthContext } from './contexts/AuthContext';
+////import SignalRWrapper from '../src/contexts/SignalEWrapper';
+
+
+//function AppRoutes() {
+//    const { isAuthenticated } = useContext(AuthContext);
+
+//    return (
+//        <Routes>
+//            all user 
+//            <Route path="/login"
+//                element={isAuthenticated ? <Login /> : <Navigate to="/create-ticket" replace />}
+//            />
+
+//            has role Employee
+//            <Route path="/create-ticket"
+//                element={isAuthenticated ? <CreateTickets /> : <Navigate to="/login" replace />}
+//            />
+
+
+
+
+//            {/*all user*/}
+//            {/*<Route path="/login"*/}
+//            {/*    element={isAuthenticated ? <Login /> : <Navigate to="/create-ticket" replace />}*/}
+//            {/*/>*/}
+
+//            {/*has role Employee*/}
+//            {/*<Route path="/create-ticket"*/}
+//            {/*    element={isAuthenticated ? <CreateTickets /> : <Navigate to="/login" replace />}*/}
+//            {/*/>*/}
+
+
+//            {/*has role Maintenance*/}
+//            {/*<Route path="/maindashboard"*/}
+//            {/*    element={isAuthenticated ? <MaintenanceDashboard /> : <Navigate to="/login" replace />}*/}
+//            {/*/>*/}
+
+//            {/*has role Admin*/}
+//            {/*<Route path="/stausdash"*/}
+//            {/*    element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />}*/}
+//            {/*/>*/}
+//            {/*has role Admin*/}
+//            {/*<Route path="/dash"*/}
+//            {/*    element={isAuthenticated ? < TicketDashboard /> : <Navigate to="/login" replace />}*/}
+//            {/*/>*/}
+//            {/*                      <Route path="/" element={<MaintenanceDashboard />} />*/}
+//            {/*                   <Route path="/maintenance/new-ticket" element={<div>New Ticket Page</div>} />*/}
+//            {/*                 <Route path="/maintenance/add-trace" element={<AddTracePage />} />*/}
+//            {/*                <Route path="/maintenance/traces" element={<TicketTracesPage />} />*/}
+
+
+//        </Routes>
+//    );
+
+//}
+//function App() {
+//    return (
+//        <AuthProvider>
+          
+              
+//            <BrowserRouter>
+//                <AppRoutes />
+//            </BrowserRouter> 
+
+                
+//        </AuthProvider>
+//    );
+//}
+
+//export default App;
 
 
 
@@ -148,7 +532,7 @@ export default App;
 //    const [apiResponse, setApiResponse] = useState('');
 //    const [loading, setLoading] = useState(false);
 
-//    // ÍÇáÇÊ ÇáäãÇĞÌ
+//    // Ø­Ø§Ù„Ø§Øª Ø§Ù„Ù†Ù…Ø§Ø°Ø¬
 //    const [loginForm, setLoginForm] = useState({ username: '', password: '' });
 //    const [ticketForm, setTicketForm] = useState({
 //        description: '',
@@ -172,31 +556,31 @@ export default App;
 //        endDate: ''
 //    });
 
-//    // ÈíÇäÇÊ ÇáÊØÈíŞ
+//    // Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ØªØ·Ø¨ÙŠÙ‚
 //    const [categories, setCategories] = useState([]);
 //    const [tickets, setTickets] = useState([]);
 
-//    // ÊÍãíá İÆÇÊ ÇáÃÌåÒÉ ÚäÏ ÈÏÁ ÇáÊÍãíá
+//    // ØªØ­Ù…ÙŠÙ„ ÙØ¦Ø§Øª Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© Ø¹Ù†Ø¯ Ø¨Ø¯Ø¡ Ø§Ù„ØªØ­Ù…ÙŠÙ„
 //    useEffect(() => {
 //        if (token) {
 //            fetchDeviceCategories();
 //        }
 //    }, [token]);
 
-//    // ÊÍãíá İÆÇÊ ÇáÃÌåÒÉ
+//    // ØªØ­Ù…ÙŠÙ„ ÙØ¦Ø§Øª Ø§Ù„Ø£Ø¬Ù‡Ø²Ø©
 //    const fetchDeviceCategories = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await getAllDeviceCategories();
 //            setCategories(result.data || []);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÊÓÌíá ÇáÏÎæá
+//    // ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„
 //    const handleLogin = async () => {
 //        try {
 //            setLoading(true);
@@ -204,19 +588,19 @@ export default App;
 //            console.log("done log in ", result);
 //            localStorage.setItem('authToken', result.token);
 //            setToken(result.token);
-//            setApiResponse('Êã ÊÓÌíá ÇáÏÎæá ÈäÌÇÍ!');
+//            setApiResponse('ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¨Ù†Ø¬Ø§Ø­!');
 
-//            // ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã ÇáÍÇáí
+//            // Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø§Ù„Ø­Ø§Ù„ÙŠ
 //            const user = await getCurrentUser();
 //            setCurrentUser(user);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ İí ÊÓÌíá ÇáÏÎæá: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£ ÙÙŠ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÊÓÌíá ÇáÎÑæÌ
+//    // ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬
 //    const handleLogout = async () => {
 //        try {
 //            setLoading(true);
@@ -224,91 +608,91 @@ export default App;
 //            localStorage.removeItem('authToken');
 //            setToken('');
 //            setCurrentUser(null);
-//            setApiResponse('Êã ÊÓÌíá ÇáÎÑæÌ ÈäÌÇÍ!');
+//            setApiResponse('ØªÙ… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬ Ø¨Ù†Ø¬Ø§Ø­!');
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ İí ÊÓÌíá ÇáÎÑæÌ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£ ÙÙŠ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÌáÈ ÌãíÚ ÇáÊĞÇßÑ
+//    // Ø¬Ù„Ø¨ Ø¬Ù…ÙŠØ¹ Ø§Ù„ØªØ°Ø§ÙƒØ±
 //    const fetchAllTickets = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await getAllTickets();
 //            setTickets(result.data || []);
-//            setApiResponse(`Êã ÌáÈ ${result.data.length} ÊĞÇßÑ`);
+//            setApiResponse(`ØªÙ… Ø¬Ù„Ø¨ ${result.data.length} ØªØ°Ø§ÙƒØ±`);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÅäÔÇÁ ÊĞßÑÉ ÌÏíÏÉ
+//    // Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© Ø¬Ø¯ÙŠØ¯Ø©
 //    const handleCreateTicket = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await createTicket(ticketForm);
-//            setApiResponse(`Êã ÅäÔÇÁ ÇáÊĞßÑÉ ÈäÌÇÍ: ${JSON.stringify(result)}`);
+//            setApiResponse(`ØªÙ… Ø¥Ù†Ø´Ø§Ø¡ Ø§Ù„ØªØ°ÙƒØ±Ø© Ø¨Ù†Ø¬Ø§Ø­: ${JSON.stringify(result)}`);
 //            fetchAllTickets();
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÅÖÇİÉ ÊÊÈÚ ÊĞßÑÉ
+//    // Ø¥Ø¶Ø§ÙØ© ØªØªØ¨Ø¹ ØªØ°ÙƒØ±Ø©
 //    const handleAddTrace = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await addTicketTrace(traceForm);
-//            setApiResponse(`Êã ÅÖÇİÉ ÇáÊÊÈÚ ÈäÌÇÍ: ${JSON.stringify(result)}`);
+//            setApiResponse(`ØªÙ… Ø¥Ø¶Ø§ÙØ© Ø§Ù„ØªØªØ¨Ø¹ Ø¨Ù†Ø¬Ø§Ø­: ${JSON.stringify(result)}`);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÊÕİíÉ ÇáÊĞÇßÑ
+//    // ØªØµÙÙŠØ© Ø§Ù„ØªØ°Ø§ÙƒØ±
 //    const handleFilterTickets = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await filterTickets(filterForm);
 //            setTickets(result.data || []);
-//            setApiResponse(`Êã ÇáÚËæÑ Úáì ${result.data.length} ÊĞßÑÉ`);
+//            setApiResponse(`ØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ ${result.data.length} ØªØ°ÙƒØ±Ø©`);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÊÕİíÉ ÇáÊĞÇßÑ ÍÓÈ ÇáÊÇÑíÎ
+//    // ØªØµÙÙŠØ© Ø§Ù„ØªØ°Ø§ÙƒØ± Ø­Ø³Ø¨ Ø§Ù„ØªØ§Ø±ÙŠØ®
 //    const handleDateFilter = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await filterTicketsByDate(dateFilterForm);
 //            setTickets(result.data || []);
-//            setApiResponse(`Êã ÇáÚËæÑ Úáì ${result.data.length} ÊĞßÑÉ İí åĞÇ ÇáäØÇŞ ÇáÒãäí`);
+//            setApiResponse(`ØªÙ… Ø§Ù„Ø¹Ø«ÙˆØ± Ø¹Ù„Ù‰ ${result.data.length} ØªØ°ÙƒØ±Ø© ÙÙŠ Ù‡Ø°Ø§ Ø§Ù„Ù†Ø·Ø§Ù‚ Ø§Ù„Ø²Ù…Ù†ÙŠ`);
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
 //    };
 
-//    // ÇáÍÕæá Úáì ÅÍÕÇÆíÇÊ ÇáÊĞÇßÑ
+//    // Ø§Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„ØªØ°Ø§ÙƒØ±
 //    const fetchStatistics = async () => {
 //        try {
 //            setLoading(true);
 //            const result = await getTicketStatistics();
 //            setApiResponse(JSON.stringify(result.data, null, 2));
 //        } catch (error) {
-//            setApiResponse(`ÎØÃ: ${error.message}`);
+//            setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //        } finally {
 //            setLoading(false);
 //        }
@@ -316,47 +700,47 @@ export default App;
 
 //    return (
 //        <div className="min-h-screen bg-gray-50">
-//            {/* ÔÑíØ ÇáÊäŞá */}
+//            {/* Ø´Ø±ÙŠØ· Ø§Ù„ØªÙ†Ù‚Ù„ */}
 //            <nav className="bg-blue-600 text-white p-4">
 //                <div className="container mx-auto flex flex-wrap justify-between items-center">
-//                    <h1 className="text-xl font-bold">ÊØÈíŞ ÊÌÑíÈí ááÜ API</h1>
+//                    <h1 className="text-xl font-bold">ØªØ·Ø¨ÙŠÙ‚ ØªØ¬Ø±ÙŠØ¨ÙŠ Ù„Ù„Ù€ API</h1>
 
 //                    <div className="flex flex-wrap gap-2 mt-2 md:mt-0">
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'login' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('login')}
 //                        >
-//                            ÊÓÌíá ÇáÏÎæá
+//                            ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„
 //                        </button>
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'profile' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('profile')}
 //                        >
-//                            Çáãáİ ÇáÔÎÕí
+//                            Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ
 //                        </button>
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'categories' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('categories')}
 //                        >
-//                            İÆÇÊ ÇáÃÌåÒÉ
+//                            ÙØ¦Ø§Øª Ø§Ù„Ø£Ø¬Ù‡Ø²Ø©
 //                        </button>
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'tickets' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('tickets')}
 //                        >
-//                            ÇáÊĞÇßÑ
+//                            Ø§Ù„ØªØ°Ø§ÙƒØ±
 //                        </button>
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'traces' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('traces')}
 //                        >
-//                            ÊÊÈÚ ÇáÊĞÇßÑ
+//                            ØªØªØ¨Ø¹ Ø§Ù„ØªØ°Ø§ÙƒØ±
 //                        </button>
 //                        <button
 //                            className={`px-3 py-1 rounded ${activeTab === 'statistics' ? 'bg-blue-800' : 'bg-blue-500'}`}
 //                            onClick={() => setActiveTab('statistics')}
 //                        >
-//                            ÇáÅÍÕÇÆíÇÊ
+//                            Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª
 //                        </button>
 //                    </div>
 
@@ -365,46 +749,46 @@ export default App;
 //                            className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded mt-2 md:mt-0"
 //                            onClick={handleLogout}
 //                        >
-//                            ÊÓÌíá ÇáÎÑæÌ
+//                            ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬
 //                        </button>
 //                    )}
 //                </div>
 //            </nav>
 
 //            <div className="container mx-auto p-4">
-//                {/* ÍÇáÉ ÇáÊÍãíá */}
+//                {/* Ø­Ø§Ù„Ø© Ø§Ù„ØªØ­Ù…ÙŠÙ„ */}
 //                {loading && (
 //                    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50">
 //                        <div className="bg-white p-6 rounded-lg shadow-lg">
 //                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-//                            <p className="mt-3 text-center">ÌÇÑí ÇáÊÍãíá...</p>
+//                            <p className="mt-3 text-center">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</p>
 //                        </div>
 //                    </div>
 //                )}
 
-//                {/* ãäØŞÉ ÇáäÊÇÆÌ */}
+//                {/* Ù…Ù†Ø·Ù‚Ø© Ø§Ù„Ù†ØªØ§Ø¦Ø¬ */}
 //                <div className="bg-white p-4 rounded-lg shadow mb-6">
-//                    <h2 className="text-lg font-semibold mb-2">äÊíÌÉ ÇáÇÓÊÏÚÇÁ:</h2>
+//                    <h2 className="text-lg font-semibold mb-2">Ù†ØªÙŠØ¬Ø© Ø§Ù„Ø§Ø³ØªØ¯Ø¹Ø§Ø¡:</h2>
 //                    <pre className="bg-gray-100 p-3 rounded max-h-60 overflow-auto">
-//                        {apiResponse || 'áã íÊã ÊäİíĞ Ãí ÇÓÊÏÚÇÁ ÈÚÏ'}
+//                        {apiResponse || 'Ù„Ù… ÙŠØªÙ… ØªÙ†ÙÙŠØ° Ø£ÙŠ Ø§Ø³ØªØ¯Ø¹Ø§Ø¡ Ø¨Ø¹Ø¯'}
 //                    </pre>
 //                </div>
 
-//                {/* ãÍÊæì ÇáÃŞÓÇã */}
+//                {/* Ù…Ø­ØªÙˆÙ‰ Ø§Ù„Ø£Ù‚Ø³Ø§Ù… */}
 //                <div className="bg-white p-6 rounded-lg shadow">
-//                    {/* ŞÓã ÊÓÌíá ÇáÏÎæá */}
+//                    {/* Ù‚Ø³Ù… ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ */}
 //                    {activeTab === 'login' && (
 //                        <div className="space-y-4">
-//                            <h2 className="text-xl font-bold text-blue-600">ÊÓÌíá ÇáÏÎæá</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„</h2>
 
 //                            {token ? (
 //                                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-//                                    ÃäÊ ãÓÌá ÏÎæá ÈÇáİÚá
+//                                    Ø£Ù†Øª Ù…Ø³Ø¬Ù„ Ø¯Ø®ÙˆÙ„ Ø¨Ø§Ù„ÙØ¹Ù„
 //                                </div>
 //                            ) : (
 //                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                                    <div>
-//                                        <label className="block mb-1">ÇÓã ÇáãÓÊÎÏã:</label>
+//                                        <label className="block mb-1">Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…:</label>
 //                                        <input
 //                                            type="text"
 //                                            className="w-full p-2 border rounded"
@@ -413,7 +797,7 @@ export default App;
 //                                        />
 //                                    </div>
 //                                    <div>
-//                                        <label className="block mb-1">ßáãÉ ÇáãÑæÑ:</label>
+//                                        <label className="block mb-1">ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ±:</label>
 //                                        <input
 //                                            type="password"
 //                                            className="w-full p-2 border rounded"
@@ -426,7 +810,7 @@ export default App;
 //                                            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
 //                                            onClick={handleLogin}
 //                                        >
-//                                            ÊÓÌíá ÇáÏÎæá
+//                                            ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„
 //                                        </button>
 //                                    </div>
 //                                </div>
@@ -434,14 +818,14 @@ export default App;
 //                        </div>
 //                    )}
 
-//                    {/* ŞÓã Çáãáİ ÇáÔÎÕí */}
+//                    {/* Ù‚Ø³Ù… Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ */}
 //                    {activeTab === 'profile' && (
 //                        <div className="space-y-4">
-//                            <h2 className="text-xl font-bold text-blue-600">Çáãáİ ÇáÔÎÕí</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">Ø§Ù„Ù…Ù„Ù Ø§Ù„Ø´Ø®ØµÙŠ</h2>
 
 //                            {!token ? (
 //                                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-//                                    íÑÌì ÊÓÌíá ÇáÏÎæá ÃæáÇğ
+//                                    ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹
 //                                </div>
 //                            ) : (
 //                                <div>
@@ -454,21 +838,21 @@ export default App;
 //                                                setCurrentUser(user);
 //                                                setApiResponse(JSON.stringify(user, null, 2));
 //                                            } catch (error) {
-//                                                setApiResponse(`ÎØÃ: ${error.message}`);
+//                                                setApiResponse(`Ø®Ø·Ø£: ${error.message}`);
 //                                            } finally {
 //                                                setLoading(false);
 //                                            }
 //                                        }}
 //                                    >
-//                                        ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã
+//                                        Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
 //                                    </button>
 
 //                                    {currentUser && (
 //                                        <div className="border border-gray-200 rounded p-4">
-//                                            <h3 className="font-semibold">ÈíÇäÇÊ ÇáãÓÊÎÏã:</h3>
-//                                            <p><strong>ÇáÇÓã:</strong> {currentUser.name}</p>
-//                                            <p><strong>ÇáÈÑíÏ ÇáÅáßÊÑæäí:</strong> {currentUser.email}</p>
-//                                            <p><strong>ÇáÏæÑ:</strong> {currentUser.role}</p>
+//                                            <h3 className="font-semibold">Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…:</h3>
+//                                            <p><strong>Ø§Ù„Ø§Ø³Ù…:</strong> {currentUser.name}</p>
+//                                            <p><strong>Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ:</strong> {currentUser.email}</p>
+//                                            <p><strong>Ø§Ù„Ø¯ÙˆØ±:</strong> {currentUser.role}</p>
 //                                        </div>
 //                                    )}
 //                                </div>
@@ -476,14 +860,14 @@ export default App;
 //                        </div>
 //                    )}
 
-//                    {/* ŞÓã İÆÇÊ ÇáÃÌåÒÉ */}
+//                    {/* Ù‚Ø³Ù… ÙØ¦Ø§Øª Ø§Ù„Ø£Ø¬Ù‡Ø²Ø© */}
 //                    {activeTab === 'categories' && (
 //                        <div className="space-y-4">
-//                            <h2 className="text-xl font-bold text-blue-600">İÆÇÊ ÇáÃÌåÒÉ</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">ÙØ¦Ø§Øª Ø§Ù„Ø£Ø¬Ù‡Ø²Ø©</h2>
 
 //                            {!token ? (
 //                                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-//                                    íÑÌì ÊÓÌíá ÇáÏÎæá ÃæáÇğ
+//                                    ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹
 //                                </div>
 //                            ) : (
 //                                <div>
@@ -491,7 +875,7 @@ export default App;
 //                                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
 //                                        onClick={fetchDeviceCategories}
 //                                    >
-//                                        ÌáÈ ÌãíÚ ÇáİÆÇÊ
+//                                        Ø¬Ù„Ø¨ Ø¬Ù…ÙŠØ¹ Ø§Ù„ÙØ¦Ø§Øª
 //                                    </button>
 
 //                                    {categories.length > 0 && (
@@ -500,8 +884,8 @@ export default App;
 //                                                <thead>
 //                                                    <tr className="bg-gray-100">
 //                                                        <th className="py-2 px-4 border-b">ID</th>
-//                                                        <th className="py-2 px-4 border-b">ÇáÇÓã</th>
-//                                                        <th className="py-2 px-4 border-b">ÇáæÕİ</th>
+//                                                        <th className="py-2 px-4 border-b">Ø§Ù„Ø§Ø³Ù…</th>
+//                                                        <th className="py-2 px-4 border-b">Ø§Ù„ÙˆØµÙ</th>
 //                                                    </tr>
 //                                                </thead>
 //                                                <tbody>
@@ -521,23 +905,23 @@ export default App;
 //                        </div>
 //                    )}
 
-//                    {/* ŞÓã ÇáÊĞÇßÑ */}
+//                    {/* Ù‚Ø³Ù… Ø§Ù„ØªØ°Ø§ÙƒØ± */}
 //                    {activeTab === 'tickets' && (
 //                        <div className="space-y-6">
-//                            <h2 className="text-xl font-bold text-blue-600">ÅÏÇÑÉ ÇáÊĞÇßÑ</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„ØªØ°Ø§ÙƒØ±</h2>
 
 //                            {!token ? (
 //                                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-//                                    íÑÌì ÊÓÌíá ÇáÏÎæá ÃæáÇğ
+//                                    ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹
 //                                </div>
 //                            ) : (
 //                                <>
-//                                    {/* ÅäÔÇÁ ÊĞßÑÉ ÌÏíÏÉ */}
+//                                    {/* Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© Ø¬Ø¯ÙŠØ¯Ø© */}
 //                                    <div className="border border-gray-200 rounded p-4">
-//                                        <h3 className="font-semibold mb-3">ÅäÔÇÁ ÊĞßÑÉ ÌÏíÏÉ</h3>
+//                                        <h3 className="font-semibold mb-3">Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø© Ø¬Ø¯ÙŠØ¯Ø©</h3>
 //                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                                            <div>
-//                                                <label className="block mb-1">æÕİ ÇáãÔßáÉ:</label>
+//                                                <label className="block mb-1">ÙˆØµÙ Ø§Ù„Ù…Ø´ÙƒÙ„Ø©:</label>
 //                                                <textarea
 //                                                    className="w-full p-2 border rounded"
 //                                                    value={ticketForm.description}
@@ -545,13 +929,13 @@ export default App;
 //                                                />
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">İÆÉ ÇáÌåÇÒ:</label>
+//                                                <label className="block mb-1">ÙØ¦Ø© Ø§Ù„Ø¬Ù‡Ø§Ø²:</label>
 //                                                <select
 //                                                    className="w-full p-2 border rounded"
 //                                                    value={ticketForm.deviceCategoryId}
 //                                                    onChange={(e) => setTicketForm({ ...ticketForm, deviceCategoryId: e.target.value })}
 //                                                >
-//                                                    <option value="">ÇÎÊÑ İÆÉ</option>
+//                                                    <option value="">Ø§Ø®ØªØ± ÙØ¦Ø©</option>
 //                                                    {categories.map(category => (
 //                                                        <option key={category.id} value={category.id}>
 //                                                            {category.name}
@@ -560,7 +944,7 @@ export default App;
 //                                                </select>
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">ãÚÑİ ÇáÌåÇÒ (ÇÎÊíÇÑí):</label>
+//                                                <label className="block mb-1">Ù…Ø¹Ø±Ù Ø§Ù„Ø¬Ù‡Ø§Ø² (Ø§Ø®ØªÙŠØ§Ø±ÙŠ):</label>
 //                                                <input
 //                                                    type="text"
 //                                                    className="w-full p-2 border rounded"
@@ -569,7 +953,7 @@ export default App;
 //                                                />
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">ÇáãÑİŞ (ÇÎÊíÇÑí):</label>
+//                                                <label className="block mb-1">Ø§Ù„Ù…Ø±ÙÙ‚ (Ø§Ø®ØªÙŠØ§Ø±ÙŠ):</label>
 //                                                <input
 //                                                    type="file"
 //                                                    className="w-full p-2 border rounded"
@@ -581,18 +965,18 @@ export default App;
 //                                                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
 //                                                    onClick={handleCreateTicket}
 //                                                >
-//                                                    ÅäÔÇÁ ÊĞßÑÉ
+//                                                    Ø¥Ù†Ø´Ø§Ø¡ ØªØ°ÙƒØ±Ø©
 //                                                </button>
 //                                            </div>
 //                                        </div>
 //                                    </div>
 
-//                                    {/* ÊÕİíÉ ÇáÊĞÇßÑ */}
+//                                    {/* ØªØµÙÙŠØ© Ø§Ù„ØªØ°Ø§ÙƒØ± */}
 //                                    <div className="border border-gray-200 rounded p-4">
-//                                        <h3 className="font-semibold mb-3">ÊÕİíÉ ÇáÊĞÇßÑ</h3>
+//                                        <h3 className="font-semibold mb-3">ØªØµÙÙŠØ© Ø§Ù„ØªØ°Ø§ÙƒØ±</h3>
 //                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 //                                            <div>
-//                                                <label className="block mb-1">ÑŞã ÇáÊĞßÑÉ:</label>
+//                                                <label className="block mb-1">Ø±Ù‚Ù… Ø§Ù„ØªØ°ÙƒØ±Ø©:</label>
 //                                                <input
 //                                                    type="text"
 //                                                    className="w-full p-2 border rounded"
@@ -601,7 +985,7 @@ export default App;
 //                                                />
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">ÊÇÑíÎ ÇáÅäÔÇÁ:</label>
+//                                                <label className="block mb-1">ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¥Ù†Ø´Ø§Ø¡:</label>
 //                                                <input
 //                                                    type="date"
 //                                                    className="w-full p-2 border rounded"
@@ -610,13 +994,13 @@ export default App;
 //                                                />
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">İÆÉ ÇáÌåÇÒ:</label>
+//                                                <label className="block mb-1">ÙØ¦Ø© Ø§Ù„Ø¬Ù‡Ø§Ø²:</label>
 //                                                <select
 //                                                    className="w-full p-2 border rounded"
 //                                                    value={filterForm.DeciveCategoryId}
 //                                                    onChange={(e) => setFilterForm({ ...filterForm, DeciveCategoryId: e.target.value })}
 //                                                >
-//                                                    <option value="">ÇÎÊÑ İÆÉ</option>
+//                                                    <option value="">Ø§Ø®ØªØ± ÙØ¦Ø©</option>
 //                                                    {categories.map(category => (
 //                                                        <option key={category.id} value={category.id}>
 //                                                            {category.name}
@@ -629,18 +1013,18 @@ export default App;
 //                                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
 //                                                    onClick={handleFilterTickets}
 //                                                >
-//                                                    ÊÕİíÉ ÇáÊĞÇßÑ
+//                                                    ØªØµÙÙŠØ© Ø§Ù„ØªØ°Ø§ÙƒØ±
 //                                                </button>
 //                                            </div>
 //                                        </div>
 //                                    </div>
 
-//                                    {/* ÊÕİíÉ ÍÓÈ ÇáÊÇÑíÎ */}
+//                                    {/* ØªØµÙÙŠØ© Ø­Ø³Ø¨ Ø§Ù„ØªØ§Ø±ÙŠØ® */}
 //                                    <div className="border border-gray-200 rounded p-4">
-//                                        <h3 className="font-semibold mb-3">ÊÕİíÉ ÍÓÈ ÇáÊÇÑíÎ</h3>
+//                                        <h3 className="font-semibold mb-3">ØªØµÙÙŠØ© Ø­Ø³Ø¨ Ø§Ù„ØªØ§Ø±ÙŠØ®</h3>
 //                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                                            <div>
-//                                                <label className="block mb-1">ÊÇÑíÎ ÇáÈÏÇíÉ:</label>
+//                                                <label className="block mb-1">ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¨Ø¯Ø§ÙŠØ©:</label>
 //                                                <input
 //                                                    type="date"
 //                                                    className="w-full p-2 border rounded"
@@ -649,7 +1033,7 @@ export default App;
 //                                                />
 //                                            </div>
 //                                            <div>
-//                                                <label className="block mb-1">ÊÇÑíÎ ÇáäåÇíÉ:</label>
+//                                                <label className="block mb-1">ØªØ§Ø±ÙŠØ® Ø§Ù„Ù†Ù‡Ø§ÙŠØ©:</label>
 //                                                <input
 //                                                    type="date"
 //                                                    className="w-full p-2 border rounded"
@@ -662,33 +1046,33 @@ export default App;
 //                                                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
 //                                                    onClick={handleDateFilter}
 //                                                >
-//                                                    ÊÕİíÉ ÍÓÈ ÇáÊÇÑíÎ
+//                                                    ØªØµÙÙŠØ© Ø­Ø³Ø¨ Ø§Ù„ØªØ§Ø±ÙŠØ®
 //                                                </button>
 //                                            </div>
 //                                        </div>
 //                                    </div>
 
-//                                    {/* ÌáÈ ÌãíÚ ÇáÊĞÇßÑ */}
+//                                    {/* Ø¬Ù„Ø¨ Ø¬Ù…ÙŠØ¹ Ø§Ù„ØªØ°Ø§ÙƒØ± */}
 //                                    <div className="flex justify-center">
 //                                        <button
 //                                            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
 //                                            onClick={fetchAllTickets}
 //                                        >
-//                                            ÌáÈ ÌãíÚ ÇáÊĞÇßÑ
+//                                            Ø¬Ù„Ø¨ Ø¬Ù…ÙŠØ¹ Ø§Ù„ØªØ°Ø§ÙƒØ±
 //                                        </button>
 //                                    </div>
 
-//                                    {/* ÚÑÖ ÇáÊĞÇßÑ */}
+//                                    {/* Ø¹Ø±Ø¶ Ø§Ù„ØªØ°Ø§ÙƒØ± */}
 //                                    {tickets.length > 0 && (
 //                                        <div className="overflow-x-auto mt-4">
 //                                            <table className="min-w-full bg-white border border-gray-200">
 //                                                <thead>
 //                                                    <tr className="bg-gray-100">
-//                                                        <th className="py-2 px-4 border-b">ÑŞã ÇáÊĞßÑÉ</th>
-//                                                        <th className="py-2 px-4 border-b">ÇáæÕİ</th>
-//                                                        <th className="py-2 px-4 border-b">ÇáÍÇáÉ</th>
-//                                                        <th className="py-2 px-4 border-b">ÊÇÑíÎ ÇáÅäÔÇÁ</th>
-//                                                        <th className="py-2 px-4 border-b">İÆÉ ÇáÌåÇÒ</th>
+//                                                        <th className="py-2 px-4 border-b">Ø±Ù‚Ù… Ø§Ù„ØªØ°ÙƒØ±Ø©</th>
+//                                                        <th className="py-2 px-4 border-b">Ø§Ù„ÙˆØµÙ</th>
+//                                                        <th className="py-2 px-4 border-b">Ø§Ù„Ø­Ø§Ù„Ø©</th>
+//                                                        <th className="py-2 px-4 border-b">ØªØ§Ø±ÙŠØ® Ø§Ù„Ø¥Ù†Ø´Ø§Ø¡</th>
+//                                                        <th className="py-2 px-4 border-b">ÙØ¦Ø© Ø§Ù„Ø¬Ù‡Ø§Ø²</th>
 //                                                    </tr>
 //                                                </thead>
 //                                                <tbody>
@@ -710,21 +1094,21 @@ export default App;
 //                        </div>
 //                    )}
 
-//                    {/* ŞÓã ÊÊÈÚ ÇáÊĞÇßÑ */}
+//                    {/* Ù‚Ø³Ù… ØªØªØ¨Ø¹ Ø§Ù„ØªØ°Ø§ÙƒØ± */}
 //                    {activeTab === 'traces' && (
 //                        <div className="space-y-4">
-//                            <h2 className="text-xl font-bold text-blue-600">ÊÊÈÚ ÇáÊĞÇßÑ</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">ØªØªØ¨Ø¹ Ø§Ù„ØªØ°Ø§ÙƒØ±</h2>
 
 //                            {!token ? (
 //                                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-//                                    íÑÌì ÊÓÌíá ÇáÏÎæá ÃæáÇğ
+//                                    ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹
 //                                </div>
 //                            ) : (
 //                                <div className="border border-gray-200 rounded p-4">
-//                                    <h3 className="font-semibold mb-3">ÅÖÇİÉ ÊÊÈÚ ÌÏíÏ</h3>
+//                                    <h3 className="font-semibold mb-3">Ø¥Ø¶Ø§ÙØ© ØªØªØ¨Ø¹ Ø¬Ø¯ÙŠØ¯</h3>
 //                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 //                                        <div>
-//                                            <label className="block mb-1">ãÚÑİ ÇáÊĞßÑÉ:</label>
+//                                            <label className="block mb-1">Ù…Ø¹Ø±Ù Ø§Ù„ØªØ°ÙƒØ±Ø©:</label>
 //                                            <input
 //                                                type="number"
 //                                                className="w-full p-2 border rounded"
@@ -733,21 +1117,21 @@ export default App;
 //                                            />
 //                                        </div>
 //                                        <div>
-//                                            <label className="block mb-1">ãÚÑİ ÇáÍÇáÉ:</label>
+//                                            <label className="block mb-1">Ù…Ø¹Ø±Ù Ø§Ù„Ø­Ø§Ù„Ø©:</label>
 //                                            <select
 //                                                className="w-full p-2 border rounded"
 //                                                value={traceForm.statusId}
 //                                                onChange={(e) => setTraceForm({ ...traceForm, statusId: e.target.value })}
 //                                            >
-//                                                <option value="">ÇÎÊÑ ÇáÍÇáÉ</option>
-//                                                <option value="1">ÌÏíÏÉ</option>
-//                                                <option value="2">ŞíÏ ÇáãÚÇáÌÉ</option>
-//                                                <option value="3">ãßÊãáÉ</option>
-//                                                <option value="4">ãÑİæÖÉ</option>
+//                                                <option value="">Ø§Ø®ØªØ± Ø§Ù„Ø­Ø§Ù„Ø©</option>
+//                                                <option value="1">Ø¬Ø¯ÙŠØ¯Ø©</option>
+//                                                <option value="2">Ù‚ÙŠØ¯ Ø§Ù„Ù…Ø¹Ø§Ù„Ø¬Ø©</option>
+//                                                <option value="3">Ù…ÙƒØªÙ…Ù„Ø©</option>
+//                                                <option value="4">Ù…Ø±ÙÙˆØ¶Ø©</option>
 //                                            </select>
 //                                        </div>
 //                                        <div className="md:col-span-2">
-//                                            <label className="block mb-1">ãáÇÍÙÉ:</label>
+//                                            <label className="block mb-1">Ù…Ù„Ø§Ø­Ø¸Ø©:</label>
 //                                            <textarea
 //                                                className="w-full p-2 border rounded"
 //                                                value={traceForm.note}
@@ -755,7 +1139,7 @@ export default App;
 //                                            />
 //                                        </div>
 //                                        <div>
-//                                            <label className="block mb-1">ãÚÑİ ÇáãÓÊÎÏã:</label>
+//                                            <label className="block mb-1">Ù…Ø¹Ø±Ù Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…:</label>
 //                                            <input
 //                                                type="text"
 //                                                className="w-full p-2 border rounded"
@@ -768,7 +1152,7 @@ export default App;
 //                                                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
 //                                                onClick={handleAddTrace}
 //                                            >
-//                                                ÅÖÇİÉ ÊÊÈÚ
+//                                                Ø¥Ø¶Ø§ÙØ© ØªØªØ¨Ø¹
 //                                            </button>
 //                                        </div>
 //                                    </div>
@@ -777,14 +1161,14 @@ export default App;
 //                        </div>
 //                    )}
 
-//                    {/* ŞÓã ÇáÅÍÕÇÆíÇÊ */}
+//                    {/* Ù‚Ø³Ù… Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª */}
 //                    {activeTab === 'statistics' && (
 //                        <div className="space-y-4">
-//                            <h2 className="text-xl font-bold text-blue-600">ÅÍÕÇÆíÇÊ ÇáÊĞÇßÑ</h2>
+//                            <h2 className="text-xl font-bold text-blue-600">Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„ØªØ°Ø§ÙƒØ±</h2>
 
 //                            {!token ? (
 //                                <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-//                                    íÑÌì ÊÓÌíá ÇáÏÎæá ÃæáÇğ
+//                                    ÙŠØ±Ø¬Ù‰ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø£ÙˆÙ„Ø§Ù‹
 //                                </div>
 //                            ) : (
 //                                <div>
@@ -792,7 +1176,7 @@ export default App;
 //                                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
 //                                        onClick={fetchStatistics}
 //                                    >
-//                                        ÌáÈ ÇáÅÍÕÇÆíÇÊ
+//                                        Ø¬Ù„Ø¨ Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª
 //                                    </button>
 //                                </div>
 //                            )}
@@ -866,7 +1250,7 @@ export default App;
 //import Dashboard from './pages/admin/Dashboard';
 //import Layout from './components/layout/Layout';
 //import LoadingSpinner from './components/common/LoadingSpinner';
-//import NotFound from './pages/NotFound'; // ÃÖİ åĞÇ
+//import NotFound from './pages/NotFound'; // Ø£Ø¶Ù Ù‡Ø°Ø§
 
 //const PrivateRoute = ({ children, roles }) => {
 //    const { user, loading, hasPermission } = useAuth();
@@ -884,7 +1268,7 @@ export default App;
 //        return <Navigate to="/login" replace />;
 //    }
 
-//    // ÇáÊÍŞŞ ãä Ãä ÇáãÓÊÎÏã áÏíå ÃÍÏ ÇáÃÏæÇÑ ÇáãØáæÈÉ
+//    // Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø£Ù† Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ù„Ø¯ÙŠÙ‡ Ø£Ø­Ø¯ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©
 //    const hasRequiredRole = roles.some(role => hasPermission(role));
 
 //    if (!hasRequiredRole) {
@@ -896,8 +1280,8 @@ export default App;
 
 //const RoleBasedRedirect = () => {
 //    const { user, loading } = useAuth();
-//    console.log("RoleBasedRedirect - user:", user); // ÅÖÇİÉ
-//    console.log("RoleBasedRedirect - loading:", loading); // ÅÖÇİÉ
+//    console.log("RoleBasedRedirect - user:", user); // Ø¥Ø¶Ø§ÙØ©
+//    console.log("RoleBasedRedirect - loading:", loading); // Ø¥Ø¶Ø§ÙØ©
 
 //    if (loading) {
 //        return (
@@ -938,39 +1322,39 @@ export default App;
 //            <Route path="/login" element={<Login />} />
 //            <Route path="/unauthorized" element={<Unauthorized />} />
 
-//            {/* ãÓÇÑÇÊ ÇáãæÙİíä */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ† */}
 //            <Route element={<PrivateRoute roles={['Employee']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/my-tickets" element={<MyTickets />} />
 //                    <Route path="/create-ticket" element={<CreateTickets />} />
-//                    {/* ÅÖÇİÉ ãÓÇÑ ÊİÇÕíá ÇáÊĞßÑÉ ááãæÙİíä */}
+//                    {/* Ø¥Ø¶Ø§ÙØ© Ù…Ø³Ø§Ø± ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªØ°ÙƒØ±Ø© Ù„Ù„Ù…ÙˆØ¸ÙÙŠÙ† */}
 //                    <Route path="/ticket/:id" element={<TicketDetails />} />
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáÕíÇäÉ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„ØµÙŠØ§Ù†Ø© */}
 //            <Route element={<PrivateRoute roles={['Maintenance']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/maintenance" element={<AssignedTickets />} />
-//                    {/* ÅÖÇİÉ ãÓÇÑ ÊİÇÕíá ÇáÊĞßÑÉ áãæÙİí ÇáÕíÇäÉ */}
+//                    {/* Ø¥Ø¶Ø§ÙØ© Ù…Ø³Ø§Ø± ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªØ°ÙƒØ±Ø© Ù„Ù…ÙˆØ¸ÙÙŠ Ø§Ù„ØµÙŠØ§Ù†Ø© */}
 //                    <Route path="/ticket/:id" element={<TicketDetails />} />
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáãÏíÑ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…Ø¯ÙŠØ± */}
 //            <Route element={<PrivateRoute roles={['Admin']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/admin" element={<Dashboard />} />
 //                    <Route path="/admin/all-tickets" element={<AllTickets />} />
-//                    {/* ÅÖÇİÉ ãÓÇÑ ÊİÇÕíá ÇáÊĞßÑÉ ááãÏÑÇÁ */}
+//                    {/* Ø¥Ø¶Ø§ÙØ© Ù…Ø³Ø§Ø± ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªØ°ÙƒØ±Ø© Ù„Ù„Ù…Ø¯Ø±Ø§Ø¡ */}
 //                    <Route path="/ticket/:id" element={<TicketDetails />} />
 //                </Route>
 //            </Route>
 
-//            {/* ÇáÊæÌíå ÇáÊáŞÇÆí ÈäÇÁğ Úáì ÇáÏæÑ */}
+//            {/* Ø§Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ø¯ÙˆØ± */}
 //            <Route path="/" element={<RoleBasedRedirect />} />
 
-//            {/* ÕİÍÉ 404 */}
+//            {/* ØµÙØ­Ø© 404 */}
 //            <Route path="*" element={<NotFound />} />
 //        </Routes>
 //    );
@@ -998,7 +1382,7 @@ export default App;
 //import Login from './pages/auth/Login';
 //import CreateTickets from './pages/employee/CreateTickets';
 //import MyTickets from './pages/employee/MyTickets';
-////import TicketDetails from './pages/employee/TicketDetails'; // Êã ÇáÊÚÏíá åäÇ
+////import TicketDetails from './pages/employee/TicketDetails'; // ØªÙ… Ø§Ù„ØªØ¹Ø¯ÙŠÙ„ Ù‡Ù†Ø§
 //import Layout from './components/layout/Layout';
 //import LoadingSpinner from './components/common/LoadingSpinner';
 //import NotFound from './pages/NotFound';
@@ -1010,7 +1394,7 @@ export default App;
 //    if (loading) return <LoadingSpinner />;
 //    if (!user) return <Navigate to="/login" replace />;
 
-//    // ÊÍŞŞ ãä Ãä user.role ãæÌæÏ æİÚøÇá
+//    // ØªØ­Ù‚Ù‚ Ù…Ù† Ø£Ù† user.role Ù…ÙˆØ¬ÙˆØ¯ ÙˆÙØ¹Ù‘Ø§Ù„
 //    if (!user.role || !roles.includes(user.role)) {
 //        return <Navigate to="/unauthorized" replace />;
 //    }
@@ -1020,7 +1404,7 @@ export default App;
 
 //const RoleBasedRedirect = () => {
 //    const { user, loading } = useAuth();
-//    console.log("RoleRedirect - user:", user); // ãåã ááÊÕÍíÍ
+//    console.log("RoleRedirect - user:", user); // Ù…Ù‡Ù… Ù„Ù„ØªØµØ­ÙŠØ­
 
 //    if (loading) return <LoadingSpinner />;
 //    if (!user) return <Navigate to="/login" replace />;
@@ -1029,7 +1413,7 @@ export default App;
 //        return <Navigate to="/create-ticket" replace />;
 //    }
 
-//    // ÊæÌíå ÇáÃÏæÇÑ ÇáÃÎÑì Åáì ãÓÇÑÇÊåã ÇáÎÇÕÉ
+//    // ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± Ø§Ù„Ø£Ø®Ø±Ù‰ Ø¥Ù„Ù‰ Ù…Ø³Ø§Ø±Ø§ØªÙ‡Ù… Ø§Ù„Ø®Ø§ØµØ©
 //    return <Navigate to="/create-ticket" replace />;
 //};
 
@@ -1080,7 +1464,7 @@ export default App;
 //            <Route path="/login" element={<Login />} />
 //            <Route path="/unauthorized" element={<Unauthorized />} />
 
-//            {/* ãÓÇÑÇÊ ÇáãæÙİíä İŞØ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ† ÙÙ‚Ø· */}
 //            <Route element={
 //                <PrivateRoute roles={['Employee']}>
 //                    <Layout />
@@ -1091,10 +1475,10 @@ export default App;
 //                {/*<Route path="/ticket/:id" element={<TicketDetails />} />*/}
 //            </Route>
 
-//            {/* ÇáÊæÌíå ÇáÊáŞÇÆí ÈäÇÁğ Úáì ÇáÏæÑ */}
+//            {/* Ø§Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ø¯ÙˆØ± */}
 //            <Route path="/" element={<RoleBasedRedirect />} />
 
-//            {/* ÕİÍÉ 404 */}
+//            {/* ØµÙØ­Ø© 404 */}
 //            <Route path="*" element={<NotFound />} />
 //        </Routes>
 //    );
@@ -1164,7 +1548,7 @@ export default App;
 //        return (
 //            <div className="full-page-loader">
 //                <LoadingSpinner />
-//                <p>ÌÇÑí ÇáÊÍãíá...</p>
+//                <p>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</p>
 //            </div>
 //        );
 //    }
@@ -1199,9 +1583,9 @@ export default App;
 
 //const Unauthorized = () => (
 //    <div className="unauthorized-page">
-//        <h2>ÛíÑ ãÕÑÍ ÈÇáæÕæá</h2>
-//        <p>áíÓ áÏíß ÇáÕáÇÍíÇÊ ÇááÇÒãÉ ááæÕæá Åáì åĞå ÇáÕİÍÉ.</p>
-//        <button onClick={() => window.history.back()}>ÇáÚæÏÉ</button>
+//        <h2>ØºÙŠØ± Ù…ØµØ±Ø­ Ø¨Ø§Ù„ÙˆØµÙˆÙ„</h2>
+//        <p>Ù„ÙŠØ³ Ù„Ø¯ÙŠÙƒ Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ§Øª Ø§Ù„Ù„Ø§Ø²Ù…Ø© Ù„Ù„ÙˆØµÙˆÙ„ Ø¥Ù„Ù‰ Ù‡Ø°Ù‡ Ø§Ù„ØµÙØ­Ø©.</p>
+//        <button onClick={() => window.history.back()}>Ø§Ù„Ø¹ÙˆØ¯Ø©</button>
 //    </div>
 //);
 
@@ -1211,7 +1595,7 @@ export default App;
 //            <Route path="/login" element={<Login />} />
 //            <Route path="/unauthorized" element={<Unauthorized />} />
 
-//            {/* ãÓÇÑÇÊ ÇáãæÙİíä */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ† */}
 //            <Route element={<PrivateRoute requiredRole="Employee" />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/my-tickets" element={<MyTickets />} />
@@ -1219,14 +1603,14 @@ export default App;
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáÕíÇäÉ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„ØµÙŠØ§Ù†Ø© */}
 //            <Route element={<PrivateRoute requiredRole="Maintenance" />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/maintenance" element={<AssignedTickets />} />
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáãÏíÑ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…Ø¯ÙŠØ± */}
 //            <Route element={<PrivateRoute requiredRole="Admin" />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/admin" element={<Dashboard />} />
@@ -1234,17 +1618,17 @@ export default App;
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑ ÊİÇÕíá ÇáÊĞßÑÉ ãÊÇÍ áÌãíÚ ÇáÃÏæÇÑ */}
+//            {/* Ù…Ø³Ø§Ø± ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªØ°ÙƒØ±Ø© Ù…ØªØ§Ø­ Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± */}
 //            <Route element={<PrivateRoute requiredRole="Employee" />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/ticket/:id" element={<TicketDetails />} />
 //                </Route>
 //            </Route>
 
-//            {/* ÇáÊæÌíå ÇáÊáŞÇÆí ÈäÇÁğ Úáì ÇáÏæÑ */}
+//            {/* Ø§Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ Ø¨Ù†Ø§Ø¡Ù‹ Ø¹Ù„Ù‰ Ø§Ù„Ø¯ÙˆØ± */}
 //            <Route path="/" element={<RoleBasedRedirect />} />
 
-//            {/* ÕİÍÉ 404 */}
+//            {/* ØµÙØ­Ø© 404 */}
 //            <Route path="*" element={<Navigate to="/" replace />} />
 //        </Routes>
 //    );
@@ -1286,7 +1670,7 @@ export default App;
 //import Dashboard from './pages/admin/Dashboard';
 //import Layout from './components/layout/Layout';
 
-//// åíßá åÑãí ááÃÏæÇÑ (ßá ÏæÑ íÍÊæí Úáì ÇáÃÏæÇÑ ÇáÃÏäì ãäå)
+//// Ù‡ÙŠÙƒÙ„ Ù‡Ø±Ù…ÙŠ Ù„Ù„Ø£Ø¯ÙˆØ§Ø± (ÙƒÙ„ Ø¯ÙˆØ± ÙŠØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ø§Ù„Ø£Ø¯ÙˆØ§Ø± Ø§Ù„Ø£Ø¯Ù†Ù‰ Ù…Ù†Ù‡)
 //const roleHierarchy = {
 //    Admin: ['Admin', 'Maintenance', 'Employee'],
 //    Maintenance: ['Maintenance', 'Employee'],
@@ -1297,14 +1681,14 @@ export default App;
 //    const { user, loading } = useAuth();
 
 //    if (loading) {
-//        return <div className="loader">ÌÇÑí ÇáÊÍãíá...</div>;
+//        return <div className="loader">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>;
 //    }
 
 //    if (!user) {
 //        return <Navigate to="/login" />;
 //    }
 
-//    // ÇáÊÍŞŞ ãä ÇáÕáÇÍíÇÊ ÇáåÑãíÉ
+//    // Ø§Ù„ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ§Øª Ø§Ù„Ù‡Ø±Ù…ÙŠØ©
 //    const hasRequiredRole = roles.some(requiredRole =>
 //        roleHierarchy[user.role]?.includes(requiredRole)
 //    );
@@ -1416,10 +1800,10 @@ export default App;
 //const PrivateRoute = ({ roles }) => {
 //    const { user, loading } = useAuth();
 
-//    if (loading) return <div>ÌÇÑí ÇáÊÍãíá...</div>;
+//    if (loading) return <div>Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>;
 //    if (!user) return <Navigate to="/login" replace />;
 
-//    // ÊÍŞŞ ãä ÇáÕáÇÍíÇÊ
+//    // ØªØ­Ù‚Ù‚ Ù…Ù† Ø§Ù„ØµÙ„Ø§Ø­ÙŠØ§Øª
 //    if (!roles.includes(user.role)) {
 //        return <Navigate to="/" replace />;
 //    }
@@ -1430,7 +1814,7 @@ export default App;
 ////    const { user, loading } = useAuth();
 
 ////    if (loading) {
-////        return <div className="loader">ÌÇÑí ÇáÊÍãíá...</div>;
+////        return <div className="loader">Ø¬Ø§Ø±ÙŠ Ø§Ù„ØªØ­Ù…ÙŠÙ„...</div>;
 ////    }
 
 ////    if (!user) {
@@ -1502,7 +1886,7 @@ export default App;
 //        <Routes>
 //            <Route path="/login" element={<Login />} />
 
-//            {/* ãÓÇÑÇÊ ÇáãæÙİíä */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…ÙˆØ¸ÙÙŠÙ† */}
 //            <Route element={<PrivateRoute roles={['Employee']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/my-tickets" element={<MyTickets />} />
@@ -1510,14 +1894,14 @@ export default App;
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáÕíÇäÉ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„ØµÙŠØ§Ù†Ø© */}
 //            <Route element={<PrivateRoute roles={['Maintenance']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/maintenance" element={<AssignedTickets />} />
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ÇáãÏíÑ */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ø§Ù„Ù…Ø¯ÙŠØ± */}
 //            <Route element={<PrivateRoute roles={['Admin']} />}>
 //                <Route element={<Layout />}>
 //                    <Route path="/admin" element={<Dashboard />} />
@@ -1525,12 +1909,12 @@ export default App;
 //                </Route>
 //            </Route>
 
-//            {/* ãÓÇÑÇÊ ãÔÊÑßÉ áÌãíÚ ÇáãÓÌáíä */}
+//            {/* Ù…Ø³Ø§Ø±Ø§Øª Ù…Ø´ØªØ±ÙƒØ© Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ù…Ø³Ø¬Ù„ÙŠÙ† */}
 //            <Route element={<PrivateRoute roles={['Employee', 'Maintenance', 'Admin']} />}>
 //                <Route path="/ticket/:id" element={<TicketDetails />} />
 //            </Route>
 
-//            {/* ÇáÊæÌíå ÇáÊáŞÇÆí */}
+//            {/* Ø§Ù„ØªÙˆØ¬ÙŠÙ‡ Ø§Ù„ØªÙ„Ù‚Ø§Ø¦ÙŠ */}
 //            <Route path="/" element={<RoleBasedRedirect />} />
 //        </Routes>
 //    );
@@ -1541,7 +1925,7 @@ export default App;
 ////        <Routes>
 ////            <Route path="/login" element={<Login />} />
 
-////            {/* ØÈŞÉ ÇáÍãÇíÉ ÇáÑÆíÓíÉ */}
+////            {/* Ø·Ø¨Ù‚Ø© Ø§Ù„Ø­Ù…Ø§ÙŠØ© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© */}
 ////            <Route element={<PrivateRoute roles={['Employee', 'Maintenance', 'Admin']} />}>
 ////                <Route element={<Layout />}>
 ////                    <Route index element={<RoleBasedRedirect />} />

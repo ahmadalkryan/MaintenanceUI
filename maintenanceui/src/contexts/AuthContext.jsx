@@ -1,3 +1,217 @@
+ï»¿
+//import { createContext, useState, useEffect } from 'react';
+
+
+//export const AuthContext = createContext();
+
+//export const AuthProvider = ({ children }) => {
+//    const [isAuthenticated, setIsAuthenticated] = useState(
+//        !!localStorage.getItem('token')
+//    );
+
+
+
+//    useEffect(() => {
+//        const handleStorageChange = () => {
+//            setIsAuthenticated(!!localStorage.getItem('token'));
+//        };
+//        window.addEventListener('storage', handleStorageChange);
+//        return () => window.removeEventListener('storage', handleStorageChange);
+//    }, []);
+
+//    return (
+//        <AuthContext.Provider value={{
+//            isAuthenticated,
+//            setIsAuthenticated,
+
+//        }}>
+//            {children}
+//        </AuthContext.Provider>
+//    );
+//};
+
+
+// src/contexts/AuthContext.js ******************
+
+//import { createContext, useState, useEffect } from 'react';
+//import { NotificationProvider } from './NotificationContext';
+
+//export const AuthContext = createContext();
+
+//export const AuthProvider = ({ children }) => {
+//    const [isAuthenticated, setIsAuthenticated] = useState(
+//        !!localStorage.getItem('token')
+//    );
+
+//    useEffect(() => {
+//        const handleStorageChange = () => {
+//            setIsAuthenticated(!!localStorage.getItem('token'));
+//        };
+
+//        window.addEventListener('storage', handleStorageChange);
+//        return () => window.removeEventListener('storage', handleStorageChange);
+//    }, []);
+
+//    return (
+//        <AuthContext.Provider value={{
+//            isAuthenticated,
+//            setIsAuthenticated,
+//        }}>
+//            <NotificationProvider>
+//                {children}
+//            </NotificationProvider>
+//        </AuthContext.Provider>
+//    );
+//};
+
+
+
+
+
+//import { createContext, useState, useContext, useEffect } from 'react';
+
+//// src/contexts/AuthContext.jsx
+
+
+//// âœ… ØªØ¹Ø±ÙŠÙ Ø§Ù„Ù€ Context
+//export const AuthContext = createContext();
+
+//// âœ… Ø¯Ø§Ù„Ø© Ù…Ø®ØµØµØ© Ù„Ø§Ø³ØªØ®Ø¯Ø§Ù… Ø§Ù„Ù€ Auth
+//export const useAuth = () => {
+//    const context = useContext(AuthContext);
+//    if (!context) {
+//        throw new Error('useAuth must be used within AuthProvider');
+//    }
+//    return context;
+//};
+
+//// âœ… Provider
+//export const AuthProvider = ({ children }) => {
+//    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+//    const [role, setRole] = useState(localStorage.getItem('role'));
+//    const [userId, setUserId] = useState(localStorage.getItem('userId'));
+//    const [isLoading, setIsLoading] = useState(true);
+
+//    useEffect(() => {
+//        const token = localStorage.getItem('token');
+//        const role = localStorage.getItem('role');
+//        const userId = localStorage.getItem('userId');
+
+//        setIsAuthenticated(!!token);
+//        setRole(role);
+//        setUserId(userId);
+//        setIsLoading(false);
+
+//        const handleStorageChange = () => {
+//            const newToken = localStorage.getItem('token');
+//            setIsAuthenticated(!!newToken);
+//            setRole(localStorage.getItem('role'));
+//            setUserId(localStorage.getItem('userId'));
+//        };
+
+//        window.addEventListener('storage', handleStorageChange);
+//        return () => window.removeEventListener('storage', handleStorageChange);
+//    }, []);
+
+//    const logout = () => {
+//        localStorage.removeItem('token');
+//        localStorage.removeItem('role');
+//        localStorage.removeItem('userId');
+//        localStorage.removeItem('userName');
+//        setIsAuthenticated(false);
+//        setRole(null);
+//        setUserId(null);
+//        window.location.href = '/login';
+//    };
+
+//    // âœ… Ù„Ø§ ØªÙØ±Ø¬Ø¹ Ø£ÙŠ Ø´ÙŠØ¡ Ù…Ù† Ø§Ù„Ù€ Provider
+//    return (
+//        <AuthContext.Provider value={{
+//            isAuthenticated,
+//            role,
+//            userId,
+//            isLoading,
+//            logout
+//        }}>
+//            {children}
+//        </AuthContext.Provider>
+//    );
+//};
+
+
+// src/contexts/AuthContext.jsx
+// src/contexts/AuthContext.jsx
+import { createContext, useState, useContext, useEffect } from 'react';
+
+// âœ… Ø£Ù†Ø´Ø¦ AuthContext Ø¨Ù‚ÙŠÙ…Ø© Ø§ÙØªØ±Ø§Ø¶ÙŠØ© ØªØ­ØªÙˆÙŠ Ø¹Ù„Ù‰ Ø¯ÙˆØ§Ù„ ÙˆÙ‡Ù…ÙŠØ©
+const AuthContext = createContext({
+    isAuthenticated: false,
+    setIsAuthenticated: () => { }, // Ø¯Ø§Ù„Ø© ÙˆÙ‡Ù…ÙŠØ© Ù„ØªØ¬Ù†Ø¨ Ø§Ù„Ø®Ø·Ø£
+    role: null,
+    userId: null
+});
+
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within AuthProvider');
+    }
+    return context;
+};
+
+export const AuthProvider = ({ children }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('authToken'));
+    const [role, setRole] = useState(localStorage.getItem('role'));
+    const [userId, setUserId] = useState(localStorage.getItem('userId'));
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+        const role = localStorage.getItem('role');
+        const userId = localStorage.getItem('userId');
+
+        setIsAuthenticated(!!token);
+        setRole(role);
+        setUserId(userId);
+        setIsLoading(false);
+
+        const handleStorageChange = () => {
+            const newToken = localStorage.getItem('authToken');
+            setIsAuthenticated(!!newToken);
+            setRole(localStorage.getItem('role'));
+            setUserId(localStorage.getItem('userId'));
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
+
+    const logout = () => {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('role');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
+        setIsAuthenticated(false);
+        setRole(null);
+        setUserId(null);
+        window.location.href = '/login';
+    };
+
+    return (
+        <AuthContext.Provider value={{
+            isAuthenticated,
+            setIsAuthenticated,
+            role,
+            userId,
+            isLoading,
+            logout
+        }}>
+            {children}
+        </AuthContext.Provider>
+    );
+};
+
+
 //import { createContext, useContext, useEffect, useState } from 'react';
 //import { getCurrentUser, logout } from '../api/auth';
 
@@ -8,7 +222,7 @@
 //    const [loading, setLoading] = useState(true);
 //    const login = async (userData) => {
 //        try {
-//            // ÇÓÊÎÏã ÇáÈíÇäÇÊ ÇáããÑÑÉ ãÈÇÔÑÉ ÈÏáÇğ ãä ÌáÈåÇ ãä ÇáÎÇÏã
+//            // Ø§Ø³ØªØ®Ø¯Ù… Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ù…Ø±Ø±Ø© Ù…Ø¨Ø§Ø´Ø±Ø© Ø¨Ø¯Ù„Ø§Ù‹ Ù…Ù† Ø¬Ù„Ø¨Ù‡Ø§ Ù…Ù† Ø§Ù„Ø®Ø§Ø¯Ù…
 //            setUser(userData);
 //            return userData;
 //        } catch (error) {
@@ -158,32 +372,7 @@
 
 
 
-import { createContext, useState, useEffect } from 'react';
 
-export const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(
-        !!localStorage.getItem('token')
-    );
-
-    useEffect(() => {
-        const handleStorageChange = () => {
-            setIsAuthenticated(!!localStorage.getItem('token'));
-        };
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
-    }, []);
-
-    return (
-        <AuthContext.Provider value={{
-            isAuthenticated,
-            setIsAuthenticated,
-        }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
 
 
 
@@ -216,10 +405,10 @@ export const AuthProvider = ({ children }) => {
 //            setLoading(true);
 
 //            const response = await apiLogin(username, password);
-//            console.log("API Response:", response); // ááÊÃßÏ ãä Çáåíßá
+//            console.log("API Response:", response); // Ù„Ù„ØªØ£ÙƒØ¯ Ù…Ù† Ø§Ù„Ù‡ÙŠÙƒÙ„
 
-//            // ÇÓÊÎÑÇÌ ÇáÈíÇäÇÊ ÍÓÈ åíßá ÇáÇÓÊÌÇÈÉ ÇáİÚáí
-//            const token = response.Data.Token; // áÇÍÙ response.Data æáíÓ response.data
+//            // Ø§Ø³ØªØ®Ø±Ø§Ø¬ Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø­Ø³Ø¨ Ù‡ÙŠÙƒÙ„ Ø§Ù„Ø§Ø³ØªØ¬Ø§Ø¨Ø© Ø§Ù„ÙØ¹Ù„ÙŠ
+//            const token = response.Data.Token; // Ù„Ø§Ø­Ø¸ response.Data ÙˆÙ„ÙŠØ³ response.data
 //            const userData = {
 //                role: response.Data.role || response.data?.role, 
 //                userId: response.Data.userId,
@@ -229,7 +418,7 @@ export const AuthProvider = ({ children }) => {
 //            };
 
 //            localStorage.setItem('authToken', token);
-//            setUser(userData); // åĞÇ ÇáÓØÑ ÇáÃåã!
+//            setUser(userData); // Ù‡Ø°Ø§ Ø§Ù„Ø³Ø·Ø± Ø§Ù„Ø£Ù‡Ù…!
 
 //            return userData;
 //        } catch (error) {
@@ -335,17 +524,17 @@ export const AuthProvider = ({ children }) => {
 //            setError(null);
 //            setLoading(true);
 
-//            // ÊÓÌíá ÇáÏÎæá æÇáÍÕæá Úáì token
+//            // ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ ÙˆØ§Ù„Ø­ØµÙˆÙ„ Ø¹Ù„Ù‰ token
 //            const loginResponse = await apiLogin(username, password);
 //            localStorage.setItem('authToken', loginResponse.token);
 
-//            // ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã ÈÇÓÊÎÏÇã token ÇáÌÏíÏ
+//            // Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… Ø¨Ø§Ø³ØªØ®Ø¯Ø§Ù… token Ø§Ù„Ø¬Ø¯ÙŠØ¯
 //            const userData = await getCurrentUser();
 //            setUser(userData);
 
 //            return userData;
 //        } catch (error) {
-//            // ÅÒÇáÉ token İí ÍÇáÉ ÇáÎØÃ
+//            // Ø¥Ø²Ø§Ù„Ø© token ÙÙŠ Ø­Ø§Ù„Ø© Ø§Ù„Ø®Ø·Ø£
 //            localStorage.removeItem('authToken');
 //            setError(error.response?.data?.message || 'Failed to login. Please check your credentials.');
 //            throw error;
@@ -392,7 +581,7 @@ export const AuthProvider = ({ children }) => {
 //                }
 //            } catch (error) {
 //                console.error('Failed to fetch user data', error);
-//                // ÅÒÇáÉ token ÛíÑ ÕÇáÍ
+//                // Ø¥Ø²Ø§Ù„Ø© token ØºÙŠØ± ØµØ§Ù„Ø­
 //                localStorage.removeItem('authToken');
 //                setError('Failed to fetch user data. Please login again.');
 //            } finally {
@@ -466,14 +655,14 @@ export const AuthProvider = ({ children }) => {
 //    const [user, setUser] = useState(null);
 //    const [loading, setLoading] = useState(true);
 
-//    // ÏÇáÉ ÊÓÌíá ÇáÏÎæá ÇáãæÍÏÉ
+//    // Ø¯Ø§Ù„Ø© ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø§Ù„Ù…ÙˆØ­Ø¯Ø©
 //    const login = async (username, password) => {
 //        try {
-//            // 1. ÊÓÌíá ÇáÏÎæá ÚÈÑ API
+//            // 1. ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„ Ø¹Ø¨Ø± API
 //            const response = await login(username, password);
 //            localStorage.setItem('authToken', response.token);
 
-//            // 2. ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã
+//            // 2. Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…
 //            const userData = await getCurrentUser();
 //            setUser(userData);
 

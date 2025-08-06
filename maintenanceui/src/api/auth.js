@@ -1,16 +1,58 @@
-
+ï»¿
 import api from './apiConfig';
 
+
+
+// api/auth.js
 //export const login = async (username, password) => {
-//    const response = await api.post('/Auth/Login', {
-//        Name: username,  // ÊÛííÑ ãä username Åáì Name
-//        Password: password // ÊÛííÑ ãä password Åáì Password
+//    try {
+//        const response = await api.post('/Auth/Login', {
+//            Name: username,
+//            Password: password
+//        });
+
+//        if (!response.Data?.Token) {
+//            throw new Error('Invalid response structure');
+//        }
+
+//        // âœ… Ø§Ø³ØªØ®Ø±Ø§Ø¬ Ø§Ù„Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ù…Ù† Ø§Ù„Ù€ response
+//        localStorage.setItem('token', response.Data.Token);
+//        localStorage.setItem('userId', response.Data.User.Id);
+//        localStorage.setItem('role', response.Data.User.Role); // Ø£Ùˆ Ù…Ù† UserRoles
+
+//        return response;
+//    } catch (err) {
+//        localStorage.removeItem('token');
+//        localStorage.removeItem('userId');
+//        localStorage.removeItem('role');
+//        throw err;
 //    }
-
-
-//    );
-//    return response.data;
 //};
+
+// src/api/auth.js
+export const login = async (username, password) => {
+    try {
+        console.log("Sending login request for:", username);
+        const response = await api.post('/Auth/Login', {
+            Name: username,
+            Password: password
+        });
+
+        console.log("Login API response:", response.data);
+
+        if (response.data.Data?.Token) {
+            localStorage.setItem('authToken', response.data.Data.Token);
+            localStorage.setItem('userId', response.data.Data.userId);
+            localStorage.setItem('role', response.data.Data.role);
+            localStorage.setItem('userName', response.data.Data.FullName);
+        }
+
+        return response.data;
+    } catch (error) {
+        console.error("Login API error:", error.response?.data || error.message);
+        throw error;
+    }
+};
 
 export const logout = async () => {
     const response = await api.post('/Auth/Logout');
@@ -24,22 +66,38 @@ export const getCurrentUser = async () => {
 };
 
 
-// İí ãáİ auth.js
-export const login = async (username, password) => {
-    try {
-        console.log("Sending login request for:", username);
-        const response = await api.post('/Auth/Login', {
-            Name: username,
-            Password: password
-        });
 
-        console.log("Login API response:", response.data);
-        return response.data;
-    } catch (error) {
-        console.error("Login API error:", error.response?.data || error.message);
-        throw error;
-    }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ÙÙŠ Ù…Ù„Ù auth.js
+//export const login = async (username, password) => {
+//    try {
+//        console.log("Sending login request for:", username);
+//        const response = await api.post('/Auth/Login', {
+//            Name: username,
+//            Password: password
+//        });
+
+//        console.log("Login API response:", response.data);
+//        return response.data;
+//    } catch (error) {
+//        console.error("Login API error:", error.response?.data || error.message);
+//        throw error;
+//    }
+//};
 
 
 
@@ -65,7 +123,7 @@ export const login = async (username, password) => {
 //export const login = async (username, password) => {
 //    try {
 //        if (!username || !password) {
-//            throw new Error('ÇÓã ÇáãÓÊÎÏã æßáãÉ ÇáãÑæÑ ãØáæÈÇä');
+//            throw new Error('Ø§Ø³Ù… Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù… ÙˆÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ù…Ø·Ù„ÙˆØ¨Ø§Ù†');
 //        }
 
 //        const response = await api.post('/Auth/Login', {
@@ -74,7 +132,7 @@ export const login = async (username, password) => {
 //        });
 
 //        if (!response.data.Success) {
-//            throw new Error(response.data.Message || 'İÔá ÊÓÌíá ÇáÏÎæá');
+//            throw new Error(response.data.Message || 'ÙØ´Ù„ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„');
 //        }
 
 //        return {
@@ -85,7 +143,7 @@ export const login = async (username, password) => {
 
 //    } catch (error) {
 //        console.error('Login error:', error);
-//        throw new Error(error.response?.data?.Message || error.message || 'ÍÏË ÎØÃ ÃËäÇÁ ÊÓÌíá ÇáÏÎæá');
+//        throw new Error(error.response?.data?.Message || error.message || 'Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¯Ø®ÙˆÙ„');
 //    }
 //};
 
@@ -101,7 +159,7 @@ export const login = async (username, password) => {
 //        });
 
 //        if (!response.data.Success) {
-//            throw new Error(response.data.Message || 'İÔá ÊÓÌíá ÇáÎÑæÌ');
+//            throw new Error(response.data.Message || 'ÙØ´Ù„ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬');
 //        }
 
 //        return {
@@ -111,7 +169,7 @@ export const login = async (username, password) => {
 
 //    } catch (error) {
 //        console.error('Logout error:', error);
-//        throw new Error(error.response?.data?.Message || error.message || 'ÍÏË ÎØÃ ÃËäÇÁ ÊÓÌíá ÇáÎÑæÌ');
+//        throw new Error(error.response?.data?.Message || error.message || 'Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø®Ø±ÙˆØ¬');
 //    }
 //};
 
@@ -120,7 +178,7 @@ export const login = async (username, password) => {
 //        const response = await api.get('/Auth/profile');
 
 //        if (!response.data.Success) {
-//            throw new Error(response.data.Message || 'İÔá ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã');
+//            throw new Error(response.data.Message || 'ÙØ´Ù„ Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…');
 //        }
 
 //        return {
@@ -131,6 +189,6 @@ export const login = async (username, password) => {
 
 //    } catch (error) {
 //        console.error('Get user error:', error);
-//        throw new Error(error.response?.data?.Message || error.message || 'ÍÏË ÎØÃ ÃËäÇÁ ÌáÈ ÈíÇäÇÊ ÇáãÓÊÎÏã');
+//        throw new Error(error.response?.data?.Message || error.message || 'Ø­Ø¯Ø« Ø®Ø·Ø£ Ø£Ø«Ù†Ø§Ø¡ Ø¬Ù„Ø¨ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„Ù…Ø³ØªØ®Ø¯Ù…');
 //    }
 //};
